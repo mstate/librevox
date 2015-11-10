@@ -46,7 +46,7 @@ module Librevox
 
     private
     def headers_2_hash *args
-      EM::Protocols::HeaderAndContentProtocol.headers_2_hash *args
+      EM::Protocols::HeaderAndContentProtocol.headers_2_hash [args].flatten
     end
   end
 end
