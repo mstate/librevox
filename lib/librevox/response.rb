@@ -1,9 +1,9 @@
 require 'eventmachine'
 require 'em/protocols/header_and_content'
 
-class String
-  alias :each :each_line
-end
+# class String
+#   alias :each :each_line
+# end
 
 module Librevox
   class Response
