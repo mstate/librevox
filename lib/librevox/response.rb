@@ -1,6 +1,6 @@
 require 'eventmachine'
 require 'em/protocols/header_and_content'
-
+require 'byebug'
 # class String
 #   alias :each :each_line
 # end
@@ -16,7 +16,7 @@ module Librevox
 
     def headers= headers
       @headers = headers_2_hash(headers)
-      @headers.each {|k,v| v.chomp! if v.is_a?(String)}
+      @headers.each {|k,v| v.chomp! if v.is_a?(String)} if @content.respond_to?(:each)
     end
 
     def content= content
@@ -25,7 +25,7 @@ module Librevox
                  else
                    content
                  end
-      @content.each {|k,v| v.chomp! if v.is_a?(String)}
+      @content.each {|k,v| v.chomp! if v.is_a?(String)} if @content.respond_to?(:each)
     end
 
     def event?
@@ -45,8 +45,9 @@ module Librevox
     end
 
     private
-    def headers_2_hash *args
-      EM::Protocols::HeaderAndContentProtocol.headers_2_hash [args].flatten
+    def headers_2_hash args
+      args_array = args.split(/\n/).compact
+      EM::Protocols::HeaderAndContentProtocol.headers_2_hash args_array
     end
   end
 end
