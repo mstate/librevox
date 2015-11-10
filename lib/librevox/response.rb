@@ -1,6 +1,5 @@
 require 'eventmachine'
 require 'em/protocols/header_and_content'
-require 'byebug'
 # class String
 #   alias :each :each_line
 # end
